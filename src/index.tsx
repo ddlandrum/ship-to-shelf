@@ -1,15 +1,13 @@
 import React, { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import Diagram from './App'; // We are importing 'Diagram' now
-import './style.css';
+import App from './App'; // This pulls from App.tsx
  
 const rootElement = document.getElementById('root');
- 
 if (rootElement) {
   const root = createRoot(rootElement);
   root.render(
     <StrictMode>
-      <Diagram /> 
+      <App />
     </StrictMode>
   );
 }

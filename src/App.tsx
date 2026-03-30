@@ -1334,4 +1334,4 @@ const Diagram = () => {
   );
 };
 
-export default Diagram;
+export default App;

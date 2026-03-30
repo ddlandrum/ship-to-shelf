@@ -1,14 +1,16 @@
-import * as React from 'react';
-import { StrictMode } from 'react';
+import React, { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-
-import App from './App';
-
+import Diagram from './App'; // We are importing 'Diagram' now
+import './style.css';
+ 
 const rootElement = document.getElementById('root');
-const root = createRoot(rootElement);
-
-root.render(
-  <StrictMode>
-    <App />
-  </StrictMode>
-);
+ 
+if (rootElement) {
+  const root = createRoot(rootElement);
+  root.render(
+    <StrictMode>
+      <Diagram /> 
+    </StrictMode>
+  );
+}
+ 

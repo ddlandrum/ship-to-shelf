@@ -1,3 +1,4 @@
+import { createRoot } from 'react-dom/client'
 import React, { useState, useEffect } from 'react';
 import {
   ArrowRight,
@@ -1334,4 +1335,7 @@ const Diagram = () => {
   );
 };
 
-export default Diagram;
+const rootElement = document.getElementById('root');
+if (rootElement) {
+  createRoot(rootElement).render(<Diagram />);
+}

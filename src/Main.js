@@ -44,10 +44,14 @@ const App = () => {
   const [isPlaying, setIsPlaying] = useState(false);
  
     useEffect(() => {
-    // 1. Force the Tailwind engine to load from inside the app
-    const script = document.createElement('script');
-    script.src = 'https://cdn.tailwindcss.com';
-    document.head.appendChild(script);
+    let timer;
+    if (isPlaying && currentStage < 4) {
+      timer = setTimeout(() => setCurrentStage(s => s + 1), 3000);
+    } else if (currentStage === 4) {
+      setIsPlaying(false);
+    }
+    return () => clearTimeout(timer);
+  }, [isPlaying, currentStage]);
  
     // 2. Your existing animation timer
     let timer;

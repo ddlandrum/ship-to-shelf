@@ -29,7 +29,6 @@ const LineYMS = ({ isActive }) => (
   <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full">
     <rect x="40" y="30" width="50" height="50" fill="#f8fafc" />
     <rect x="50" y="40" width="10" height="15" className={isActive ? "fill-purple-500" : ""} />
-    <path d="M 10,75 L 30,75" className={isActive ? "rotate-[-45deg]" : ""} style={{ origin: '10px 75px', transition: 'all 0.5s' }} />
   </svg>
 );
  
@@ -37,7 +36,6 @@ const LineStore = ({ isActive }) => (
   <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full">
     <rect x="20" y="20" width="70" height="70" fill="#fff" />
     <rect x="30" y="40" width="10" height="10" className={isActive ? "fill-rose-500" : ""} />
-    <rect x="45" y="40" width="10" height="10" className={isActive ? "fill-rose-300" : ""} />
   </svg>
 );
  
@@ -65,21 +63,20 @@ const App = () => {
  
   return (
     <div className="min-h-screen bg-slate-50 p-8 flex flex-col items-center font-sans">
-      <h1 className="text-3xl font-black text-slate-900 mb-2">Ship-to-Shelf Orchestration</h1>
-      <p className="text-slate-500 mb-8 text-center max-w-lg">Real-time visibility from port of origin to final mile delivery.</p>
+      <h1 className="text-3xl font-black text-slate-900 mb-2 tracking-tight">Kaleris Ship-to-Shelf</h1>
+      <p className="text-slate-500 mb-8 text-center max-w-lg">Full-spectrum visibility orchestration.</p>
       
       <button
         onClick={() => { setCurrentStage(0); setIsPlaying(true); }}
         className="mb-12 px-8 py-3 bg-blue-600 text-white rounded-full font-bold shadow-lg hover:bg-blue-700 transition-all flex items-center gap-2"
       >
-        <PlayCircle size={20} /> Initialize Simulation
+        <PlayCircle size={20} /> Initialize Journey
       </button>
  
       <div className="w-full max-w-6xl flex flex-col md:flex-row items-center justify-between gap-4">
         {steps.map((step, idx) => {
           const IconComp = step.icon;
           const active = currentStage === idx;
-          const past = currentStage > idx;
           return (
             <React.Fragment key={idx}>
               <div className={`flex flex-col items-center p-6 bg-white rounded-3xl border-2 transition-all duration-500 w-full md:w-44 ${active ? `scale-110 shadow-xl border-blue-400 ${step.bg}` : 'border-slate-100 opacity-50'}`}>
@@ -87,24 +84,10 @@ const App = () => {
                 <h4 className={`font-black ${step.color}`}>{step.title}</h4>
                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{step.sub}</p>
               </div>
-              {idx < 4 && <ArrowRight className={`hidden md:block ${past ? 'text-blue-500' : 'text-slate-200'}`} />}
+              {idx < 4 && <ArrowRight className={`hidden md:block ${currentStage > idx ? 'text-blue-500' : 'text-slate-200'}`} />}
             </React.Fragment>
           );
         })}
-      </div>
- 
-      <div className={`mt-12 p-6 bg-slate-900 rounded-2xl w-full max-w-2xl text-white font-mono transition-all duration-500 ${currentStage >=0 ? 'opacity-100' : 'opacity-0'}`}>
-        <div className="flex justify-between items-center mb-4 border-b border-white/10 pb-2">
-          <span className="text-[10px] text-slate-500">LIVE FEED: {currentStage >=0 ? steps[currentStage].title : ''}</span>
-          <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-        </div>
-        <div className="text-blue-400 font-bold text-xl">
-          {currentStage === 0 && "VESSEL DEPARTING ORIGIN..."}
-          {currentStage === 1 && "TERMINAL OPERATIONS ACTIVE..."}
-          {currentStage === 2 && "INTERMODAL TRANSIT IN PROGRESS..."}
-          {currentStage === 3 && "YARD DISBURSEMENT STARTED..."}
-          {currentStage === 4 && "FINAL MILE DELIVERY COMPLETED."}
-        </div>
       </div>
     </div>
   );

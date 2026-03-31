@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Activity, Globe2, Box, Radio, PlayCircle, RotateCcw, ShieldCheck, Cpu, Wifi } from 'lucide-react';
+import { ArrowRight, PlayCircle } from 'lucide-react';
  
 // --- Small Helper Icons ---
 const LineShip = ({ isActive }) => (
@@ -43,17 +43,17 @@ const App = () => {
   const [currentStage, setCurrentStage] = useState(-1);
   const [isPlaying, setIsPlaying] = useState(false);
  
-    useEffect(() => {
-    let timer;
-    if (isPlaying && currentStage < 4) {
-      timer = setTimeout(() => setCurrentStage(s => s + 1), 3000);
-    } else if (currentStage === 4) {
-      setIsPlaying(false);
+  useEffect(() => {
+    // 1. Bulletproof Styling Injection (Bypasses HTML blocks)
+    if (!document.getElementById('tailwind-stylesheet')) {
+      const link = document.createElement('link');
+      link.id = 'tailwind-stylesheet';
+      link.href = 'https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css';
+      link.rel = 'stylesheet';
+      document.head.appendChild(link);
     }
-    return () => clearTimeout(timer);
-  }, [isPlaying, currentStage]);
  
-    // 2. Your existing animation timer
+    // 2. Dashboard Animation Timer
     let timer;
     if (isPlaying && currentStage < 4) {
       timer = setTimeout(() => setCurrentStage(s => s + 1), 3000);
@@ -89,12 +89,12 @@ const App = () => {
           const active = currentStage === idx;
           return (
             <React.Fragment key={idx}>
-              <div className={`flex flex-col items-center p-6 bg-white rounded-3xl border-2 transition-all duration-500 w-full md:w-44 ${active ? `scale-110 shadow-xl border-blue-400 ${step.bg}` : 'border-slate-100 opacity-50'}`}>
+              <div className={`flex flex-col items-center p-6 bg-white rounded-3xl border-2 transition-all duration-500 w-full md:w-44 ${active ? `scale-110 shadow-xl border-blue-400 ${step.bg}` : 'border-gray-100 opacity-50'}`}>
                 <div className="w-20 h-20 mb-4"><IconComp isActive={active} /></div>
                 <h4 className={`font-black ${step.color}`}>{step.title}</h4>
-                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{step.sub}</p>
+                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{step.sub}</p>
               </div>
-              {idx < 4 && <ArrowRight className={`hidden md:block ${currentStage > idx ? 'text-blue-500' : 'text-slate-200'}`} />}
+              {idx < 4 && <div className="hidden md:block"><ArrowRight className={currentStage > idx ? 'text-blue-500' : 'text-gray-200'} /></div>}
             </React.Fragment>
           );
         })}

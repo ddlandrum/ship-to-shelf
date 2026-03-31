@@ -1,6 +1,6 @@
 import React, { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import App from './Kaleris'; // This points to your Kaleris.tsx file
+import App from './Main'; // This points to your Kaleris.tsx file
 import './style.css';
  
 const rootElement = document.getElementById('root');

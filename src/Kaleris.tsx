@@ -110,4 +110,4 @@ const App = () => {
   );
 };
  
-export default Kaleris;
+export default App;
